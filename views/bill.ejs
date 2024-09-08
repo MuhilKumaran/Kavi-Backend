@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bill - AJ Crackers</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+      }
+      .container {
+        max-width: 600px;
+        margin: auto;
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 8px;
+      }
+      .header {
+        text-align: center;
+        color: rgb(14, 12, 12);
+      }
+      .header h1 {
+        margin: 0;
+        font-size: 24px;
+      }
+      .bill-info {
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+      .bill-info h2 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: normal;
+      }
+      .bill-info p {
+        margin: 4px 0;
+        font-size: 14px;
+      }
+      .product-table {
+        width: 100%;
+        /* border-collapse: collapse; */
+      }
+      .product-table th {
+        border-bottom: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+
+      .product-table td {
+        border-bottom: 1px solid rgb(137, 137, 137);
+      }
+    
+      .product-table th {
+        /* background-color: #f2f2f2; */
+      }
+      .product-table img {
+        width: 50px;
+        height: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>KAVI Crackers</h1>
+      </div>
+      <div class="bill-info">
+        <p><strong>Name:</strong> <%= bill.userData.name %></p>
+        <p><strong>Address:</strong> <%= bill.userData.address %></p>
+        <p><strong>Contact:</strong> <%= bill.userData.contact %></p>
+        <p><strong>Email:</strong> <%= bill.userData.email %></p>
+      </div>
+      <table class="product-table">
+        <thead>
+          <tr >
+            <th>Product</th>
+            <th style="text-align: right;">Qty</th>
+            <th style="text-align: right;">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% bill.cart.forEach(function(item) { %>
+          <tr style="padding: 4px; text-align: right;">
+            <td style="text-align: left;">
+              <br /><%= item['1'] %><br /><%= item['0'] %><br /><%= item['3']
+              %>
+            </td>
+            <td><%= item.quantity %></td>
+            <td>₹<%= item['2'] %></td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+      <!-- Footer Section -->
+      <div
+        style="
+          background-color: #000;
+          color: #fff;
+          padding: 10px;
+          margin-top: 20px;
+          width: 100%;
+          text-align: left;
+        "
+      >
+         <p style="text-align: right; font-size: 14px;font-weight:bold;">
+          MRP Price : ₹ <%= bill.totalPrice %>
+        </p>
+        <p style="text-align: right; font-size: 14px;font-weight:bold;">
+          COUPON Discount : ₹ <%= (bill.discount>0 ? (bill.totalPrice) - (bill.discount) : 0) %>
+        </p>
+        <hr style="border: 1px solid #333;padding-left: 0%;" />
+        <p
+          style="font-size: 18px;
+            font-weight: bold;  
+            color: #ffc107;
+            text-align: right;
+          "
+       >
+       Grand Total : ₹ <%= (bill.discount > 0 ? bill.discount : bill.totalPrice) %>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
